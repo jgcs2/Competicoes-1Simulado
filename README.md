@@ -36,3 +36,7 @@ O projeto tem como objetivo facilitar o agendamento de atendimentos, o acompanha
 
 Figma é um editor gráfico de vetor e prototipagem de projetos de design baseado principalmente no navegador web, com ferramentas offline adicionais para aplicações desktop. É um software focado no desenvolvimento de sistemas de design gráfico, prototipagem de interface gráfica de usuário e desenvolvimento de UI/UX (User Interface eXperience ou experiência da interface com o usuário), permitindo também o desenvolvimento colaborativo em tempo real com outros usuários remotamente.
 
+### Draw.io
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Diagrams.net_Logo.svg" width="100" alt = "Logo diagrams.net">
+
+Diagrams.net (anteriormente draw.io) é um aplicativo de desenho de gráficos utilizado para projetar e exportar muitos tipos de diagramas, incluindo diagramas de circuitos, plantas baixas, fluxogramas, infográficos, mapas mentais e designs UML. É possível acessar o software tanto pelo aplicativo para desktop ou pela web através do site.
