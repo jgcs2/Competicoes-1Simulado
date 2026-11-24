@@ -36,6 +36,12 @@ O projeto tem como objetivo facilitar o agendamento de atendimentos, o acompanha
 
 Figma é um editor gráfico de vetor e prototipagem de projetos de design baseado principalmente no navegador web, com ferramentas offline adicionais para aplicações desktop. É um software focado no desenvolvimento de sistemas de design gráfico, prototipagem de interface gráfica de usuário e desenvolvimento de UI/UX (User Interface eXperience ou experiência da interface com o usuário), permitindo também o desenvolvimento colaborativo em tempo real com outros usuários remotamente.
 
+### LINK DO PROJETO NO FIGMA
+
+Protótipo no Figma: 
+
+https://www.figma.com/design/fh4k5AvspcecUoXaWEu0LJ/Projeto-Teste?node-id=0-1&t=wmtyxEWP12Cl51I8-1
+
 ### Draw.io
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Diagrams.net_Logo.svg" width="100" alt = "Logo diagrams.net">
 
