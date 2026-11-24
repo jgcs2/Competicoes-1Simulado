@@ -42,8 +42,7 @@ Protótipo no Figma:
 
 https://www.figma.com/design/fh4k5AvspcecUoXaWEu0LJ/Projeto-Teste?node-id=0-1&t=wmtyxEWP12Cl51I8-1
 
-#### Justificativa de design 
-O design é voltado para o alto contraste e fontes de fáceis compreensão para auxiliar pessoas da terceira idade, foram utilizadas fontes em tamanho grande para evitar dificuldades na vista.
+
 
 ### Draw.io
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Diagrams.net_Logo.svg" width="100" alt = "Logo diagrams.net">
