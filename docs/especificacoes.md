@@ -108,3 +108,8 @@ ________________________________________________________________________________
 
 ![Mapa](./images/DiagramaDeClasses.drawio.png)
 
+____________________________________________________________________________________________
+
+## 13 - Integração do backend com o swagger
+![Mapa](./images/Swagger.png)
+![Mapa](./images/Swagger2.png)
