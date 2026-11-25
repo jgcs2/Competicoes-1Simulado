@@ -73,6 +73,10 @@ HeidiSQL é uma ferramenta de administração gratuita e de código aberto para 
 
 Dbdiagram.io é uma ferramenta simples e gratuita para desenhar diagramas de banco de dados (ERDs) digitando código DSL. dbdiagram usa o popular DBML (Database Markup Language).
 
+### Java Script
+<img src= 'https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg">
+
+
 ## Licença MIT 
 Copyright © 2026
 

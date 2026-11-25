@@ -1,0 +1,9 @@
+{ 
+    "name": "vida_mais_facil_api",
+    "version": "1.0.0",
+    "private": true, 
+    "scripts": {
+        "start": "node --env-file=.env servidor.js"
+    }
+}
+

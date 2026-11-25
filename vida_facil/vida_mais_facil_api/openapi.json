@@ -1,0 +1,243 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Vida+Fácil API",
+    "version": "1.0.0",
+    "description": "API do Módulo D com Express, MySQL e autenticação JWT."
+  },
+  "servers": [
+    { "url": "/" }
+  ],
+  "security": [
+    { "bearerAuth": [] }
+  ],
+  "paths": {
+    "/cadastro": {
+      "post": {
+        "summary": "Cadastrar paciente",
+        "security": [],
+        "requestBody": { "$ref": "#/components/requestBodies/Cadastro" },
+        "responses": {
+          "201": {
+            "description": "Paciente cadastrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usuario" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/DadosInvalidos" },
+          "409": { "description": "CPF ou e-mail já cadastrado" }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Entrar e obter um token válido por uma hora",
+        "security": [],
+        "requestBody": { "$ref": "#/components/requestBodies/Login" },
+        "responses": {
+          "200": {
+            "description": "Login realizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["token"],
+                  "properties": {
+                    "token": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/DadosInvalidos" },
+          "401": { "description": "Credenciais inválidas" }
+        }
+      }
+    },
+    "/agendamentos": {
+      "get": {
+        "summary": "Listar meus agendamentos, incluindo os cancelados",
+        "responses": {
+          "200": {
+            "description": "Lista de agendamentos do paciente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Agendamento" }
+                }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/TokenInvalido" },
+          "403": { "$ref": "#/components/responses/PerfilInvalido" }
+        }
+      },
+      "post": {
+        "summary": "Marcar agendamento",
+        "requestBody": { "$ref": "#/components/requestBodies/Agendamento" },
+        "responses": {
+          "201": { "$ref": "#/components/responses/AgendamentoCriado" },
+          "400": { "$ref": "#/components/responses/DadosInvalidos" },
+          "401": { "$ref": "#/components/responses/TokenInvalido" },
+          "403": { "$ref": "#/components/responses/PerfilInvalido" },
+          "404": { "description": "Paciente ou profissional não encontrado" },
+          "409": { "$ref": "#/components/responses/HorarioOcupado" }
+        }
+      }
+    },
+    "/agendamentos/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": { "$ref": "#/components/schemas/Id" }
+        }
+      ],
+      "put": {
+        "summary": "Remarcar um agendamento ativo",
+        "requestBody": { "$ref": "#/components/requestBodies/Agendamento" },
+        "responses": {
+          "200": {
+            "description": "Agendamento atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Agendamento" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/DadosInvalidos" },
+          "401": { "$ref": "#/components/responses/TokenInvalido" },
+          "403": { "$ref": "#/components/responses/PerfilInvalido" },
+          "404": { "description": "Agendamento ativo ou profissional não encontrado" },
+          "409": { "$ref": "#/components/responses/HorarioOcupado" }
+        }
+      },
+      "delete": {
+        "summary": "Cancelar um agendamento ativo",
+        "description": "Libera o horário e mantém o registro no histórico com stats igual a Cancelado.",
+        "responses": {
+          "204": { "description": "Agendamento cancelado, sem corpo na resposta" },
+          "400": { "$ref": "#/components/responses/DadosInvalidos" },
+          "401": { "$ref": "#/components/responses/TokenInvalido" },
+          "403": { "$ref": "#/components/responses/PerfilInvalido" },
+          "404": { "description": "Agendamento ativo não encontrado para este paciente" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Id": { "type": "integer", "minimum": 1, "maximum": 4294967295 },
+      "Usuario": {
+        "type": "object",
+        "required": ["id", "nome", "email"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/Id" },
+          "nome": { "type": "string" },
+          "email": { "type": "string", "format": "email" }
+        }
+      },
+      "DadosAgendamento": {
+        "type": "object",
+        "required": ["profissionalId", "dataHora"],
+        "properties": {
+          "profissionalId": { "$ref": "#/components/schemas/Id" },
+          "dataHora": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+            "description": "Data em UTC com segundos e sufixo Z"
+          }
+        },
+        "example": {
+          "profissionalId": 2,
+          "dataHora": "2026-12-10T17:00:00Z"
+        }
+      },
+      "Agendamento": {
+        "type": "object",
+        "required": ["id", "profissionalId", "inicioUtc", "stats"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/Id" },
+          "profissionalId": { "$ref": "#/components/schemas/Id" },
+          "inicioUtc": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Segundos Unix em UTC"
+          },
+          "stats": {
+            "type": "string",
+            "enum": ["Marcado", "Cancelado"]
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Cadastro": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["nome", "cpf", "email", "senha"],
+              "properties": {
+                "nome": { "type": "string", "minLength": 1, "maxLength": 255, "example": "Ana Silva" },
+                "cpf": { "type": "string", "pattern": "^[0-9]{11}$", "example": "12345678901" },
+                "email": { "type": "string", "format": "email", "maxLength": 255, "example": "ana@example.com" },
+                "senha": { "type": "string", "format": "password", "minLength": 8, "description": "Até 72 bytes em UTF-8", "example": "VidaFacil123" }
+              }
+            }
+          }
+        }
+      },
+      "Login": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["email", "senha"],
+              "properties": {
+                "email": { "type": "string", "format": "email", "example": "ana@example.com" },
+                "senha": { "type": "string", "format": "password", "example": "VidaFacil123" }
+              }
+            }
+          }
+        }
+      },
+      "Agendamento": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/DadosAgendamento" }
+          }
+        }
+      }
+    },
+    "responses": {
+      "AgendamentoCriado": {
+        "description": "Agendamento marcado",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Agendamento" }
+          }
+        }
+      },
+      "DadosInvalidos": { "description": "Dados de entrada inválidos" },
+      "TokenInvalido": { "description": "Token ausente, inválido ou expirado" },
+      "PerfilInvalido": { "description": "A operação exige perfil de paciente" },
+      "HorarioOcupado": { "description": "Paciente ou profissional já tem agendamento ativo nesse horário" }
+    }
+  }
+}
