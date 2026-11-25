@@ -94,3 +94,13 @@ ________________________________________________________________________________
 ![Mapa](./images/JornadaDoUsuario.drawio.png) 
 
 
+<<<<<<< HEAD
+=======
+## 10 - Justificativa de design 
+O design é voltado para o alto contraste e fontes de fáceis compreensão para auxiliar pessoas da terceira idade, foram utilizadas fontes em tamanho grande para evitar dificuldades na vista.
+____________________________________________________________________________________________
+
+## 11 - DER ( Diagrama de entidade e relacionamento)
+
+![Mapa](./images/Untitled.png)
+>>>>>>> b1162d0 (Atualiza especificacoes.md)
