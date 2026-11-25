@@ -68,6 +68,11 @@ Docker é um conjunto de produtos que usa virtualização em nível de sistema o
 
 HeidiSQL é uma ferramenta de administração gratuita e de código aberto para MariaDB, MySQL, bem como Microsoft SQL Server, PostgreSQL e SQLite.
 
+### Dbdiagram.io
+<img src="./docs/images/dbdiagram.png" width="100" alt="logo dbdiagram">
+
+Dbdiagram.io é uma ferramenta simples e gratuita para desenhar diagramas de banco de dados (ERDs) digitando código DSL. dbdiagram usa o popular DBML (Database Markup Language).
+
 ## Licença MIT 
 Copyright © 2026
 
